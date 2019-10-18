@@ -1,102 +1,91 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>SQL Generator</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>SQL Generator</title>
+  <!-- css reset -->
+  <link rel="stylesheet" href="./reset.css">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- custom css -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="container">
+  <div class="row">
 
-  <body>
-    <style>
-      .input input {
-        height: 20px; width: 200px;
-        margin: 10px 0;
-      }
+    <div class="input col">
+      <form>
 
-      .input p { line-height: 22px;}
+        <div class="form-group">
+          <label for="input_product">Product Line (Required)</label>
+          <select class="form-control" id="input_product">
+            <option>ACD</option>
+            <option>ACDMAC</option>
+            <option>ACDLT</option>
+            <option>CIV3D</option>
+            <option>RVT</option>
+            <option>RVTLT</option>
+          </select>
+        </div>
 
-      .filter_discription {
-        color: grey;
-        font-style: italic;
-      }
+        <div class="form-group">
+          <label for="input_release">Release (Required)</label>
+          <select class="form-control" id="input_release">
+            <option>2020</option>
+            <option>2019</option>
+            <option>2018</option>
+          </select>
+        </div>
 
-      .output {
-        display: none;
-      }
+        <div class="form-group">
+          <label for="input_limit">Query Number (Required)</label>
+          <input type="number" class="form-control" id="input_limit" aria-describedby="limitHelp" placeholder="eg. 1000">
+          <small id="limitHelp" class="form-text text-muted">Set an upper limit (1-5000) on the number of results returned by SQL.</small>
+        </div>
 
-      .output p {
-        font-size: 12px;
-        line-height: 5px;
-        color: grey;
-      }
+        <div class="form-group input_comp_type">
+          <label style="display:block">Component Type</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="input_comp_command" name="input_comp_type" value="option1">
+            <label class="form-check-label" for="input_comp_command">Command</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="input_comp_waypoint" name="input_comp_type" value="option2">
+            <label class="form-check-label" for="input_comp_waypoint">Waypoint</label>
+          </div>
+        </div>
 
-      #output_filters {
-        margin-top: 10px;
-      }
-    </style>
+        <div class="form-group">
+          <label for="input_component">Component Name</label>
+          <input type="input" class="form-control" id="input_component" placeholder="eg. QSELECT">
+        </div>
 
-    <div class="input">
-      <p>Product Name (Required)
-        <br/><span class="filter_discription">eg. ACD2019</span>
-        <br/><input id="input_product_name" type="text">
-      </p>
+        <button type="button" class="btn btn-primary" onClick="getSQL()">Submit</button>
+      </form>
 
-      <p>Waypoint
-        <br/><span class="filter_discription">eg. WNTPLiveUpdate</span>
-        <br/><input id="input_waypoint" type="text">
-      </p>
-
-      <p>Limit (Required)
-        <br/><span class="filter_discription">0-5000</span>
-        <br/><input id="input_limit" type="text">
-      </p>
-
-      <button onclick="getSQL()">Submit</button>
     </div>
 
-    <div class="output">
-      <h3>Here's your SQL Query! Detailed instructions on how to use in Looker, please check out <a href="#">here</a></h3>
-      <p>SELECT *</p>
-      <p>FROM desktop_product_usage_public.dap_experiment_details_daily</p>
-      <p>WHERE product_line_name = <span id="output_product_name"></span></p>
-      <div id="output_filters"></div>
-      <p>LIMIT <span id="output_limit"></span></p>
+    <div class="output col-8">
+      <p>Your SQL will show up here</p>
+      <div class="container">
+        <ul id="output_code"></ul>
+      </div>
+      <p style="margin-top:20px;"><b>How to query data from Looker:</b>
+        <br/>Step 1: Copy your SQL query generated above.
+        <br/>Step 2: Login to <a href="https://looker.autodesk.com/sql/">Looker</a> using your SSO.
+        <br/>Step 3: Paste the SQL query in Looker and click "Run".
+        <br/>Step 4: Download the query result in CSV and start analyzing!
+      </p>
     </div>
 
+  </div>
 
-    <script>
-      function getSQL(){
-        // get required filters
-        document.getElementById('output_product_name').innerHTML = input_product_name.value;
-        document.getElementById('output_limit').innerHTML = input_limit.value;
-
-        // clear optional filter
-        output_filters.innerHTML = '';
-
-        // get optional filters
-        var filters = {
-          component_name: input_waypoint.value,
-          filter1: input_waypoint.value,
-          filter2: input_waypoint.value
-        }
-
-        for (let [key, value] of Object.entries(filters)) {
-          if (value !== '') {
-            var node = document.createElement("p");
-            node.classList.add('optional');
-
-            var textnode = document.createTextNode(`AND ${key} = ${value}`);
-            node.appendChild(textnode);
-            document.getElementById("output_filters").appendChild(node);
-          }
-        }
-
-        // show output div
-        document.querySelector('.output').style.display = 'block';
-        // clear input
-        document.querySelector('.input input').value = '';
-      }
-
-    </script>
-
-  </body>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!--  bootstrap scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- custom script -->
+  <script type="text/javascript" src="./script.js"></script>
+</body>
 </html>

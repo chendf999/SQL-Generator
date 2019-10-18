@@ -1,0 +1,20 @@
+.input form label {
+  font-weight: bold;
+}
+
+.input form label.form-check-label {
+  font-weight: normal;
+}
+
+.output li {
+  text-indent: none;
+  color: #e83e8c;
+  font-family: monospace;
+}
+
+.output .container {
+  margin-bottom: 20px;
+  background: #eee;
+  border-radius: 5px;
+  padding: 20px;
+}
