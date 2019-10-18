@@ -5,9 +5,20 @@ var component;
 var limit;
 
 function getSQL(){
-  getComponent();
+  // check limit
+  limit = input_limit.value;
+
+  if (limit > 0 && limit <= 5000) {
+    limit = `<li>LIMIT ${limit}</li>`
+  } else {
+    alert('Please enter a number between 1-5000');
+    input_limit.value = '';
+    return
+  }
+
+  getComponent(); // command and waypoint use different db
   getProductAndDB();
-  getLimit();
+  
   output_code.innerHTML = product + component + limit;
 }
 
@@ -31,17 +42,5 @@ function getComponent(){
       database = 'desktop_product_intelligence_public.experiment_data_partitioned_weekly_v2';
       component = `<li>AND dataset.component_attributes['COMMON.COMMAND_NAME'] = '${input_component.value}'</li>`
     }
-  }
-}
-
-function getLimit(){
-  limit = input_limit.value;
-
-  if (limit > 0 && limit <= 5000) {
-    limit = `<li>LIMIT ${limit}</li>`
-  } else {
-    alert('Please enter a number between 1-5000');
-    input_limit.value = '';
-    return
   }
 }

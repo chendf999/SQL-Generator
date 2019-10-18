@@ -1,9 +1,6 @@
-.input form label {
-  font-weight: bold;
-}
 
-.input form label.form-check-label {
-  font-weight: normal;
+.input, .output {
+  padding: 0 25px;
 }
 
 .output li {
