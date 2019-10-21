@@ -5,6 +5,8 @@
   <title>SQL Generator</title>
   <!-- css reset -->
   <link rel="stylesheet" href="./reset.css">
+  <!-- datepicker -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <!-- bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- custom css -->
@@ -17,7 +19,7 @@
       <form>
 
         <div class="form-group">
-          <label for="input_product"><b>Product Line</b> (Required)</label>
+          <label for="input_product"><b>Product Line</b></label>
           <select class="form-control" id="input_product">
             <option>ACD</option>
             <option>ACDMAC</option>
@@ -29,7 +31,7 @@
         </div>
 
         <div class="form-group">
-          <label for="input_release"><b>Release</b> (Required)</label>
+          <label for="input_release"><b>Release</b></label>
           <select class="form-control" id="input_release">
             <option>2020</option>
             <option>2019</option>
@@ -38,10 +40,15 @@
         </div>
 
         <div class="form-group">
-          <label for="input_limit"><b>Query Number</b> (Required)</label>
+          <label for="input_date"><b>Date</b></label>
+          <input type="input" class="form-control" id="input_date" name="input_date" />
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="input_limit"><b>Query Number</b></label>
           <input type="number" class="form-control" id="input_limit" aria-describedby="limitHelp" placeholder="eg. 1000">
           <small id="limitHelp" class="form-text text-muted">Set an upper limit (1-5000) on the number of results returned by SQL.</small>
-        </div>
+        </div> -->
 
         <div class="form-group input_comp_type">
           <label style="display:block"><b>Component Type</b></label>
@@ -79,6 +86,19 @@
   <!--  bootstrap scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- datepicker -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script>
+  $(function() {
+    $('input[name="input_date"]').daterangepicker({
+      opens: 'left',
+      locale: {
+      format: 'YYYY/MM/DD'
+      }
+    });
+  });
+</script>
   <!-- custom script -->
   <script type="text/javascript" src="./script.js"></script>
 </body>
