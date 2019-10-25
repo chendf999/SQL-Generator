@@ -26,8 +26,7 @@ function getSQL(){
 
 function getProductAndDB(){
   product =  `
-  <li>SELECT *</li>
-  <li>FROM ${database}</li>
+  <li>SELECT * FROM ${database}</li>
   <li>AS dataset</li>
   <li>WHERE product_name = '${input_product.value}${input_release.value}'</li>
   `

@@ -8,3 +8,10 @@
   color: #e83e8c;
   font-family: monospace;
 }
+
+.output .container {
+  margin-bottom: 20px;
+  background: #F6F6F6;
+  border-radius: 5px;
+  padding: 20px;
+}
