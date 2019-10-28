@@ -52,7 +52,7 @@ function getDate(){
   var end = date[2].replace(/\//g,'');
 
   daterange = `
-  <li>AND dt BETWEEN ${start} AND ${end}</li>
+  <li>AND dt BETWEEN '${start}' AND '${end}'</li>
   `
   console.log(start, end);
 }
